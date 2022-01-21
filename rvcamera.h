@@ -1,6 +1,5 @@
 #ifndef RVCAMERA_H
 #define RVCAMERA_H
-
 #include <QMatrix4x4>
 #include <QVector3D>
 
@@ -13,13 +12,15 @@ public:
     QMatrix4x4 viewMatrix();
     QMatrix4x4 projectionMatrix();
 
-    //Accesseurs
     QVector3D getPosition() const;
     void setPosition(const QVector3D &position);
+
     QVector3D getTarget() const;
     void setTarget(const QVector3D &target);
+
     QVector3D getUp() const;
     void setUp(const QVector3D &up);
+
     float getFov() const;
     void setFov(float fov);
     float getAspect() const;
@@ -33,10 +34,12 @@ protected:
     QVector3D position;
     QVector3D target;
     QVector3D up;
+
     float fov;
     float aspect;
     float zMin;
     float zMax;
+
 };
 
-#endif // RVCAMERA_H
+#endif //RVCAMERA_H

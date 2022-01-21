@@ -1,37 +1,14 @@
 #include "rvpyramid.h"
 
 RVPyramid::RVPyramid()
-    :RVBody()
+:RVBody()
 {
-    //Je définis ici les shaders à utiliser dans RVPyramid
-    VSFileName = ":/shaders/VS_simple.vsh";
-    FSFileName = ":/shaders/FS_simple.fsh";
+//Je définis ici les shaders à utiliser dans RVPyramid
+VSFileName = ":/shaders/VS_simple.vsh";
+FSFileName = ":/shaders/FS_simple.fsh";
 }
 
-void RVPyramid::draw()
-{
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
-    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-    program.bind();
-    vao.bind();
-
-    //Définition de la variable uniforme
-    QMatrix4x4 matrix;
-    matrix = camera->projectionMatrix() * camera->viewMatrix() * this->modelMatrix();
-    program.setUniformValue("u_ModelViewProjectionMatrix", matrix);
-
-    //Commande de rendu (indexé)
-    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, nullptr);
-
-    vao.release();
-    program.release();
-}
-
-void RVPyramid::initializeBuffer()
-{
+void RVPyramid::initializeBuffer(){
     //Définition de 4 points
     QVector3D A(0, 0, 1);
     QVector3D B(0.85f, 0, -0.5f);
@@ -74,7 +51,6 @@ void RVPyramid::initializeBuffer()
     //Libération du VBO
     ibo.release();
 
-
     numVertices = 4;
     numTriangles = 4;
     numIndices = 12;
@@ -96,6 +72,28 @@ void RVPyramid::initializeVAO()
     program.enableAttributeArray("rv_Color");
 
     //Libération
+    vao.release();
+    program.release();
+}
+
+void RVPyramid::draw()
+{
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+    //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    program.bind();
+    vao.bind();
+
+    //Définition de la variable uniforme
+    QMatrix4x4 matrix;
+    matrix = camera->projectionMatrix() * camera->viewMatrix() * this->modelMatrix();
+    program.setUniformValue("u_ModelViewProjectionMatrix", matrix);
+
+    //Commande de rendu (indexé)
+    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, nullptr);
+
     vao.release();
     program.release();
 }

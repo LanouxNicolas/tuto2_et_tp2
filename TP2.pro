@@ -11,12 +11,14 @@ CONFIG += c++11
 
 SOURCES += \
     main.cpp \
+    mainwindow.cpp \
     rvbody.cpp \
     rvcamera.cpp \
     rvpyramid.cpp \
     rvwidget.cpp
 
 HEADERS += \
+    mainwindow.h \
     rvbody.h \
     rvcamera.h \
     rvpyramid.h \
@@ -36,3 +38,6 @@ DISTFILES += \
 
 RESOURCES += \
     RVResources.qrc
+
+FORMS += \
+    mainwindow.ui

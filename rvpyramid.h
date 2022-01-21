@@ -1,7 +1,7 @@
 #ifndef RVPYRAMID_H
 #define RVPYRAMID_H
-
 #include "rvbody.h"
+
 
 class RVPyramid : public RVBody
 {
@@ -13,5 +13,6 @@ protected:
     void initializeBuffer() override;
     void initializeVAO() override;
 };
+
 
 #endif // RVPYRAMID_H

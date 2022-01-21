@@ -1,6 +1,5 @@
 #ifndef RVBODY_H
 #define RVBODY_H
-
 #include <QOpenGLFunctions>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
@@ -24,32 +23,33 @@ public:
     virtual void initializeBuffer() = 0;
     virtual void initializeVAO() = 0;
 
-    // pour bouger l'objet
-    void rotate(float angle, QVector3D axis);
     void translate(QVector3D position);
+    void rotate(float angle, QVector3D axis);
     void setOrientation(float yaw, float pitch, float roll);
 
     // accesseurs et mutateurs .....
-    RVCamera *getCamera() const;
+
     void setCamera(RVCamera *newCamera);
 
-    const QVector3D &getPosition() const;
     void setPosition(const QVector3D &newPosition);
 
+    const QVector3D &getPosition() const;
+
     const QQuaternion &getOrientation() const;
-    void setOrientation(const QQuaternion &newOrientation);
+
+    const QString &getVSFileName() const;
+
+    const QString &getFSFileName() const;
+
+    void setVSFileName(const QString &newVSFileName);
+
+    void setFSFileName(const QString &newFSFileName);
 
     int getNumVertices() const;
 
     int getNumTriangles() const;
 
     int getNumIndices() const;
-
-    const QString &getVSFileName() const;
-    void setVSFileName(const QString &newVSFileName);
-
-    const QString &getFSFileName() const;
-    void setFSFileName(const QString &newFSFileName);
 
 protected:
     QString VSFileName;               //! : nom du fichier qui contient le vertex shader
@@ -69,4 +69,4 @@ protected:
     RVCamera *camera;                 //! : pointeur sur la caméra utilisée pour le rendu.
 };
 
-#endif // RVBODY_H
+#endif //RVBODY_H

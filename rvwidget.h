@@ -5,7 +5,9 @@
 #include <QMessageBox>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QVector3D>
 #include <QTimer>
+#include <QMouseEvent>
 #include "rvbody.h"
 #include "rvcamera.h"
 #include "rvpyramid.h"
@@ -19,19 +21,32 @@ public:
     RVWidget(QWidget *parent = nullptr);
     ~RVWidget();
 
-    // Attributs pour le rendu
+
+
 private:
+    float angleY;
+    float angleX;
+    QTimer* timer;
+    QPointF oldpos;
+    bool isSpinning;
+    int fov;
+    int opacity;
     RVBody* body;
     RVCamera* camera;
-    QTimer* timer;
-    float angleY;
 
-protected slots:
+private slots:
     void update();
-    void changeFov(float fov);
+
+public slots:
+    void startAnimation();
+    void changeFov(int);
+    void changeOpacity(int);
+
+protected:
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
 
     // QOpenGLWidget interface
-protected:
     void initializeGL() override;
     void resizeGL(int w, int h) override;
     void paintGL() override;

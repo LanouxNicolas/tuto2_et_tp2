@@ -5,21 +5,15 @@ RVCamera::RVCamera()
     position = QVector3D(0, 0, 0);
     target = QVector3D(0, 0, -1);
     up = QVector3D(0, 1, 0);
+
     fov  = 45;
     aspect = 1.33f;
     zMax = 100;
     zMin  = 0.1f;
 }
 
-RVCamera::~RVCamera()
-{
-}
+RVCamera::~RVCamera(){
 
-QMatrix4x4 RVCamera::viewMatrix()
-{
-    QMatrix4x4 view;
-    view.lookAt(position, target, up);
-    return view;
 }
 
 QMatrix4x4 RVCamera::projectionMatrix()
@@ -27,6 +21,13 @@ QMatrix4x4 RVCamera::projectionMatrix()
     QMatrix4x4 proj;
     proj.perspective(fov, aspect, zMin, zMax);
     return proj;
+}
+
+QMatrix4x4 RVCamera::viewMatrix()
+{
+    QMatrix4x4 view;
+    view.lookAt(position, target, up);
+    return view;
 }
 
 QVector3D RVCamera::getPosition() const

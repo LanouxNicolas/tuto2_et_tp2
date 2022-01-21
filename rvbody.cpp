@@ -29,6 +29,7 @@ RVBody::~RVBody()
     vbo.destroy();
 }
 
+
 void RVBody::initialize()
 {
     initializeShader();
@@ -79,21 +80,6 @@ void RVBody::initializeShader()
     program.release();
 }
 
-void RVBody::rotate(float angle, QVector3D axis)
-{
-    orientation =  QQuaternion::fromAxisAndAngle(axis, angle) * orientation ;
-}
-
-void RVBody::translate(QVector3D position)
-{
-    this->position += position;
-}
-
-void RVBody::setOrientation(float yaw, float pitch, float roll)
-{
-    orientation = QQuaternion::fromEulerAngles(pitch, yaw, roll);
-}
-
 QMatrix4x4 RVBody::modelMatrix()
 {
     QMatrix4x4 model;
@@ -102,9 +88,19 @@ QMatrix4x4 RVBody::modelMatrix()
     return model;
 }
 
-RVCamera *RVBody::getCamera() const
+void RVBody::translate(QVector3D position)
 {
-    return camera;
+    this->position += position;
+}
+
+void RVBody::rotate(float angle, QVector3D axis)
+{
+    orientation =  QQuaternion::fromAxisAndAngle(axis, angle) * orientation ;
+}
+
+void RVBody::setOrientation(float yaw, float pitch, float roll)
+{
+    orientation = QQuaternion::fromEulerAngles(pitch, yaw, roll);
 }
 
 void RVBody::setCamera(RVCamera *newCamera)
@@ -112,14 +108,14 @@ void RVBody::setCamera(RVCamera *newCamera)
     camera = newCamera;
 }
 
-const QVector3D &RVBody::getPosition() const
-{
-    return position;
-}
-
 void RVBody::setPosition(const QVector3D &newPosition)
 {
     position = newPosition;
+}
+
+const QVector3D &RVBody::getPosition() const
+{
+    return position;
 }
 
 const QQuaternion &RVBody::getOrientation() const
@@ -127,9 +123,24 @@ const QQuaternion &RVBody::getOrientation() const
     return orientation;
 }
 
-void RVBody::setOrientation(const QQuaternion &newOrientation)
+const QString &RVBody::getVSFileName() const
 {
-    orientation = newOrientation;
+    return VSFileName;
+}
+
+const QString &RVBody::getFSFileName() const
+{
+    return FSFileName;
+}
+
+void RVBody::setVSFileName(const QString &newVSFileName)
+{
+    VSFileName = newVSFileName;
+}
+
+void RVBody::setFSFileName(const QString &newFSFileName)
+{
+    FSFileName = newFSFileName;
 }
 
 int RVBody::getNumVertices() const
@@ -145,24 +156,4 @@ int RVBody::getNumTriangles() const
 int RVBody::getNumIndices() const
 {
     return numIndices;
-}
-
-const QString &RVBody::getVSFileName() const
-{
-    return VSFileName;
-}
-
-void RVBody::setVSFileName(const QString &newVSFileName)
-{
-    VSFileName = newVSFileName;
-}
-
-const QString &RVBody::getFSFileName() const
-{
-    return FSFileName;
-}
-
-void RVBody::setFSFileName(const QString &newFSFileName)
-{
-    FSFileName = newFSFileName;
 }
