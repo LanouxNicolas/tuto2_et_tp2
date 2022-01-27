@@ -21,7 +21,7 @@ public:
     void initialize();
     void initializeShader();
     virtual void initializeBuffer() = 0;
-    virtual void initializeVAO() = 0;
+    virtual void initializeVAO();
 
     void translate(QVector3D position);
     void rotate(float angle, QVector3D axis);
@@ -51,7 +51,24 @@ public:
 
     int getNumIndices() const;
 
+    void setOpacity(float newOpacity);
+
+    float getOpacity() const;
+
+    bool getWireframe() const;
+    void setWireframe(bool newWireframe);
+
+    bool getCulling() const;
+    void setCulling(bool newCulling);
+
+    float getScale() const;
+    void setScale(float newScale);
+
+    const QVector3D &getGlobalColor() const;
+    void setGlobalColor(const QVector3D &newGlobalColor);
+
 protected:
+    QVector3D globalColor;
     QString VSFileName;               //! : nom du fichier qui contient le vertex shader
     QString FSFileName;               //! : nom du fichier qui contient le fragment shader
     QOpenGLBuffer vbo;                //! : vertex buffer qui stocke les sommets du maillage
@@ -61,12 +78,17 @@ protected:
 
     QVector3D position;               //! : position de l'objet dans la scène
     QQuaternion orientation;          //! : attitude de l'objet dans la scène
+    float opacity;
+    float scale;
 
     int numVertices;                  //! : nombre de sommets de l'objet (lecture seule)
     int numTriangles;                 //! : nombre de triangles de l'objet (lecture seule)
     int numIndices;                   //! : nombre d'index (0 si on n'utilise pas l'ibo)
 
     RVCamera *camera;                 //! : pointeur sur la caméra utilisée pour le rendu.
+
+    bool wireframe;
+    bool culling;
 };
 
 #endif //RVBODY_H

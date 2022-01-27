@@ -78,8 +78,8 @@ void RVPyramid::initializeVAO()
 
 void RVPyramid::draw()
 {
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
+    //glCullFace(GL_BACK);
+    //glFrontFace(GL_CCW);
     //glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
@@ -92,7 +92,11 @@ void RVPyramid::draw()
     program.setUniformValue("u_ModelViewProjectionMatrix", matrix);
 
     //Commande de rendu (indexé)
-    glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, nullptr);
+    //glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_INT, nullptr);
+    for(int i =0;i<6;i++){
+        glDrawArrays(GL_TRIANGLE_FAN, i*4, 4);
+        //glDrawArrays(GL_TRIANGLE_FAN, 0, 4);
+    }
 
     vao.release();
     program.release();

@@ -65,12 +65,22 @@
          </widget>
         </item>
         <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Opacity</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QSlider" name="opacitySlider">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>0</number>
           </property>
           <property name="maximum">
            <number>100</number>
@@ -80,6 +90,75 @@
           </property>
           <property name="value">
            <number>100</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="wireframe">
+          <property name="text">
+           <string>Fil de fer</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCheckBox" name="culling">
+          <property name="text">
+           <string>culling</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Scale</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="scalingSlider">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimum">
+           <number>1</number>
+          </property>
+          <property name="maximum">
+           <number>5</number>
+          </property>
+          <property name="value">
+           <number>1</number>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_3">
+          <property name="text">
+           <string>Saturation</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QSlider" name="saturationSlider">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="maximum">
+           <number>255</number>
+          </property>
+          <property name="value">
+           <number>255</number>
           </property>
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
@@ -126,6 +205,10 @@
     <slot>startAnimation()</slot>
     <slot>changeFov(int)</slot>
     <slot>changeOpacity(int)</slot>
+    <slot>toggleWireframe(bool)</slot>
+    <slot>toggleCulling(bool)</slot>
+    <slot>changeScale(int)</slot>
+    <slot>changeSaturation(int)</slot>
    </slots>
   </customwidget>
  </customwidgets>
@@ -171,11 +254,75 @@
    <hints>
     <hint type="sourcelabel">
      <x>741</x>
-     <y>176</y>
+     <y>198</y>
     </hint>
     <hint type="destinationlabel">
      <x>633</x>
      <y>287</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>wireframe</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widgetRV</receiver>
+   <slot>toggleWireframe(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>699</x>
+     <y>222</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>555</x>
+     <y>167</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>culling</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>widgetRV</receiver>
+   <slot>toggleCulling(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>775</x>
+     <y>255</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>632</x>
+     <y>385</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>scalingSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>widgetRV</receiver>
+   <slot>changeScale(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>759</x>
+     <y>297</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>664</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>saturationSlider</sender>
+   <signal>sliderMoved(int)</signal>
+   <receiver>widgetRV</receiver>
+   <slot>changeSaturation(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>758</x>
+     <y>335</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>676</x>
+     <y>427</y>
     </hint>
    </hints>
   </connection>

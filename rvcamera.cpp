@@ -8,8 +8,9 @@ RVCamera::RVCamera()
 
     fov  = 45;
     aspect = 1.33f;
-    zMax = 100;
-    zMin  = 0.1f;
+    zMax = 20;
+    zMin  = 5;
+    isOrthogonal=true;
 }
 
 RVCamera::~RVCamera(){
@@ -19,7 +20,12 @@ RVCamera::~RVCamera(){
 QMatrix4x4 RVCamera::projectionMatrix()
 {
     QMatrix4x4 proj;
-    proj.perspective(fov, aspect, zMin, zMax);
+    if (isOrthogonal){
+        proj.ortho(-fov/2*aspect,fov/2*aspect, -fov/2,fov/2, zMin, zMax);
+    }
+    else{
+        proj.perspective(fov, aspect, zMin, zMax);
+    }
     return proj;
 }
 
@@ -98,4 +104,14 @@ float RVCamera::getZMax() const
 void RVCamera::setZMax(float zMax)
 {
     this->zMax = zMax;
+}
+
+bool RVCamera::getIsOrthogonal() const
+{
+    return isOrthogonal;
+}
+
+void RVCamera::setIsOrthogonal(bool newIsOrthogonal)
+{
+    isOrthogonal = newIsOrthogonal;
 }

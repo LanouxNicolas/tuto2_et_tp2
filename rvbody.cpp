@@ -16,8 +16,15 @@ RVBody::RVBody()
     numTriangles = 0;
     numIndices = 0;
 
-    VSFileName = "NO VS FILE";
-    FSFileName = "NO FS FILE";
+    opacity = 1;
+    wireframe=false;
+    culling=false,
+    scale=1;
+    globalColor=QVector3D(1,1,1);
+
+    //Je définis ici les shaders à utiliser dans RVPyramid
+    VSFileName = ":/shaders/VS_simpler.vsh";
+    FSFileName = ":/shaders/FS_simple.fsh";
 }
 
 RVBody::~RVBody()
@@ -80,11 +87,29 @@ void RVBody::initializeShader()
     program.release();
 }
 
+void RVBody::initializeVAO()
+{
+    //Initialisation du VAO
+    vao.create();
+    vao.bind();
+    vbo.bind();
+    ibo.bind();
+
+    //Définition du seul attribut position (la couleur est uniforme avec le VS_simpler)
+    program.setAttributeBuffer("rv_Position", GL_FLOAT, 0, 3);
+    program.enableAttributeArray("rv_Position");
+
+    //Libération
+    vao.release();
+    program.release();
+}
+
 QMatrix4x4 RVBody::modelMatrix()
 {
     QMatrix4x4 model;
     model.translate(position);
     model.rotate(orientation);
+    model.scale(scale);
     return model;
 }
 
@@ -156,4 +181,54 @@ int RVBody::getNumTriangles() const
 int RVBody::getNumIndices() const
 {
     return numIndices;
+}
+
+void RVBody::setOpacity(float newOpacity)
+{
+    opacity = newOpacity;
+}
+
+float RVBody::getOpacity() const
+{
+    return opacity;
+}
+
+bool RVBody::getWireframe() const
+{
+    return wireframe;
+}
+
+void RVBody::setWireframe(bool newWireframe)
+{
+    wireframe = newWireframe;
+}
+
+bool RVBody::getCulling() const
+{
+    return culling;
+}
+
+void RVBody::setCulling(bool newCulling)
+{
+    culling = newCulling;
+}
+
+float RVBody::getScale() const
+{
+    return scale;
+}
+
+void RVBody::setScale(float newScale)
+{
+    scale = newScale;
+}
+
+const QVector3D &RVBody::getGlobalColor() const
+{
+    return globalColor;
+}
+
+void RVBody::setGlobalColor(const QVector3D &newGlobalColor)
+{
+    globalColor = newGlobalColor;
 }

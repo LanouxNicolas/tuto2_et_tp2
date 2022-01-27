@@ -30,6 +30,9 @@ public:
     float getZMax() const;
     void setZMax(float zMax);
 
+    bool getIsOrthogonal() const;
+    void setIsOrthogonal(bool newIsOrthogonal);
+
 protected:
     QVector3D position;
     QVector3D target;
@@ -39,6 +42,7 @@ protected:
     float aspect;
     float zMin;
     float zMax;
+    bool isOrthogonal;
 
 };
 
